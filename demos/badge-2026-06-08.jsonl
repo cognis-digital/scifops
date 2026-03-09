@@ -1,0 +1,4 @@
+{"ts": 1780951809.325317, "prev": "GENESIS", "event": {"type": "badge", "badge_id": "B001", "holder_name": "Alice", "ts": 1780951809.325318, "direction": "in"}, "hash": "x"}
+{"ts": 1780951909.3253307, "prev": "x", "event": {"type": "badge", "badge_id": "V100", "holder_name": "Visitor", "ts": 1780951909.325331, "direction": "in", "visitor_id": "V100", "escort_for": "B001"}, "hash": "y"}
+{"ts": 1780954409.3253388, "prev": "y", "event": {"type": "badge", "badge_id": "V101", "holder_name": "Unescorted Visitor", "ts": 1780954409.325339, "direction": "in", "visitor_id": "V101"}, "hash": "z"}
+{"ts": 1780955309.3253455, "prev": "z", "event": {"type": "badge", "badge_id": "B001", "holder_name": "Alice", "ts": 1780955309.325346, "direction": "out"}, "hash": "w"}

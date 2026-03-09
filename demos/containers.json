@@ -1,0 +1,17 @@
+[
+  {
+    "id": "GSA-2D-001",
+    "model": "Hamilton Series 3",
+    "last_inspection_ts": 1763675409.3253944
+  },
+  {
+    "id": "GSA-2D-002",
+    "model": "Mosler MR-2",
+    "last_inspection_ts": 1746395409.3253949
+  },
+  {
+    "id": "GSA-2D-003",
+    "model": "Hamilton",
+    "last_inspection_ts": 1750715409.3253953
+  }
+]
