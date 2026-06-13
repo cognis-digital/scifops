@@ -5,6 +5,37 @@
 
 > Public primitives for SCIF/SAPF compliance: badge log w/ tamper-evident audit, TPI, escort tracking, GSA container cadence.
 
+## Usage — step by step
+
+`scifops` is built on the shared `cognis_mil` CLI: a positional target plus
+standard output/scoring flags.
+
+1. **Install** (editable from a clone, or from the wheel):
+   ```bash
+   pip install -e .
+   # provides the `scifops` console script
+   ```
+2. **Run the primary scan** against a path or target (defaults to `.`):
+   ```bash
+   scifops .
+   ```
+3. **Emit machine-readable output** — pick any of `console|json|markdown|sarif|oscal`:
+   ```bash
+   scifops ./target --format json --out scifops-report.json
+   ```
+4. **Read / use the output.** The JSON report carries the findings list and a
+   severity-weighted `composite_score`; SARIF drops straight into code-scanning,
+   and `oscal` emits an OSCAL skeleton. A `--classification` banner can be
+   stamped on the report (placeholder only — the tool does not interpret it):
+   ```bash
+   scifops ./target --classification "UNCLASSIFIED//FOR PUBLIC RELEASE" --format markdown
+   ```
+5. **Gate CI on severity** with `--fail-on` (`very_high|high|moderate|low|none`).
+   The process exits non-zero when a finding at/above the threshold exists:
+   ```bash
+   scifops ./target --format sarif --out scifops.sarif --fail-on high
+   ```
+
 ## Upstream
 
 Forks / wraps **(original)**. See [`UPSTREAM.md`](./UPSTREAM.md) for the
