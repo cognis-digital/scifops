@@ -5,6 +5,12 @@
 
 > Public primitives for SCIF/SAPF compliance: badge log w/ tamper-evident audit, TPI, escort tracking, GSA container cadence.
 
+<!-- cognis:layman:start -->
+## What is this?
+
+scifops is a command-line tool that helps security teams track and verify compliance inside Sensitive Compartmented Information Facilities (SCIFs) — the secure rooms used by military and intelligence organizations. It monitors who enters and exits the facility using badge logs, checks that safes and storage containers are inspected on schedule, and enforces the "two-person rule" that requires a second authorized person to witness sensitive operations. It is designed for cleared facilities managers, security officers, and DevOps pipelines that need an automated, tamper-evident record of physical access control activities.
+<!-- cognis:layman:end -->
+
 ## Upstream
 
 Forks / wraps **(original)**. See [`UPSTREAM.md`](./UPSTREAM.md) for the
@@ -16,6 +22,42 @@ licensing posture, supported commits, and how to upgrade.
 - TPI verification primitive
 - Visitor escort enforcement
 - GSA container inspection-due reminders
+
+<!-- cognis:install:start -->
+## Install
+
+`scifops` is source-available (not published to PyPI) — every method below installs
+straight from GitHub. Pick whichever you prefer; the one-line scripts auto-detect
+the best tool available on your machine.
+
+**One-liner (Linux / macOS):**
+```sh
+curl -fsSL https://raw.githubusercontent.com/cognis-digital/scifops/HEAD/install.sh | sh
+```
+
+**One-liner (Windows PowerShell):**
+```powershell
+irm https://raw.githubusercontent.com/cognis-digital/scifops/HEAD/install.ps1 | iex
+```
+
+**Or install manually — any one of:**
+```sh
+pipx install "git+https://github.com/cognis-digital/scifops.git"     # isolated (recommended)
+uv tool install "git+https://github.com/cognis-digital/scifops.git"  # uv
+pip install "git+https://github.com/cognis-digital/scifops.git"      # pip
+```
+
+**From source:**
+```sh
+git clone https://github.com/cognis-digital/scifops.git
+cd scifops && pip install .
+```
+
+Then run:
+```sh
+scifops --help
+```
+<!-- cognis:install:end -->
 
 ## Install
 
@@ -68,7 +110,7 @@ These are emitted in JSON, SARIF, and the OSCAL skeleton.
 ```yaml
 - name: scifops scan
   run: |
-    pip install cognis-scifops
+    pip install "git+https://github.com/cognis-digital/scifops.git"
     scifops . --format=oscal --out=assessment-results.json --fail-on=high
 - name: Upload to eMASS/Xacta
   run: cognis-rmf-package import assessment-results.json
@@ -80,3 +122,42 @@ These are emitted in JSON, SARIF, and the OSCAL skeleton.
 Apache-2.0 unless stated otherwise.
 
 See [the master index](../../MASTER-INDEX.md).
+
+<a name="verification"></a>
+## Verification
+
+[![tests](https://img.shields.io/badge/tests-5%20passing-2ea44f.svg)](AUDIT.md)
+
+Every push is verified end-to-end. Latest audit (2026-06-13):
+
+```text
+tests        : 5 passed, 0 failed, 0 errored
+compile      : all modules parse
+cli          : scifops 0.1.0
+package      : scifops
+```
+
+<details><summary>CLI surface (<code>--help</code>)</summary>
+
+```text
+usage: scifops [-h] [--format {console,json,markdown,sarif,oscal}] [--out OUT]
+               [--fail-on {very_high,high,moderate,low,none}]
+               [--classification CLASSIFICATION] [-v]
+               [target]
+
+scifops — Cognis Digital · Military/IC ecosystem
+
+positional arguments:
+  target                Path/target
+
+options:
+  -h, --help            show this help message and exit
+  --format {console,json,markdown,sarif,oscal}
+  --out OUT             Write output to file
+```
+</details>
+
+Full machine-readable results: [`AUDIT.md`](AUDIT.md) · regenerate with `python -m scifops --help` + `pytest -q`.
+
+<div align="right"><a href="#top">↑ back to top</a></div>
+

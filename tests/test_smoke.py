@@ -1,4 +1,4 @@
-import json, time
+import time
 from pathlib import Path
 from scifops.core import BadgeLog, BadgeEvent, verify_tpi, days_until_inspection, scan
 from cognis_mil import AuditLog

@@ -12,7 +12,7 @@ Primitives:
 """
 from __future__ import annotations
 import time, json
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from pathlib import Path
 from cognis_mil import ScanResult, Finding, Severity, AuditLog
 
