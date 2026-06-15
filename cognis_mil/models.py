@@ -4,6 +4,7 @@ from dataclasses import dataclass, field, asdict
 from enum import Enum
 import time
 
+
 class Severity(str, Enum):
     # NIST 800-30 Table I-2 maps. We keep CRITICAL as a synonym for VERY_HIGH.
     VERY_HIGH = "very_high"
@@ -13,6 +14,7 @@ class Severity(str, Enum):
     VERY_LOW  = "very_low"
     CRITICAL  = "very_high"  # alias
 
+
 WEIGHTS = {
     Severity.VERY_HIGH: 10.0,
     Severity.HIGH:       7.0,
@@ -20,6 +22,7 @@ WEIGHTS = {
     Severity.LOW:        2.0,
     Severity.VERY_LOW:   0.5,
 }
+
 
 @dataclass
 class Finding:
@@ -48,6 +51,7 @@ class Finding:
         d["severity"] = self.severity.value
         return d
 
+
 @dataclass
 class ScanResult:
     tool_name: str
@@ -67,17 +71,26 @@ class ScanResult:
 
     def finalize(self):
         if not self.findings:
-            self.composite_score = 0.0; self.risk_level = "Very Low"; return self
+            self.composite_score = 0.0
+            self.risk_level = "Very Low"
+            return self
         score = sum(f.weight for f in self.findings) * 1.5
         self.composite_score = min(100.0, score)
         s = self.composite_score
-        self.risk_level = "Very High" if s >= 80 else "High" if s >= 60 else "Moderate" if s >= 40 else "Low" if s >= 20 else "Very Low"
+        self.risk_level = (
+            "Very High" if s >= 80
+            else "High" if s >= 60
+            else "Moderate" if s >= 40
+            else "Low" if s >= 20
+            else "Very Low"
+        )
         return self
 
     def to_dict(self):
         return {
             "classification": self.classification_placeholder,
-            "tool_name": self.tool_name, "tool_version": self.tool_version,
+            "tool_name": self.tool_name,
+            "tool_version": self.tool_version,
             "items_scanned": self.items_scanned,
             "composite_score": round(self.composite_score, 1),
             "risk_level": self.risk_level,

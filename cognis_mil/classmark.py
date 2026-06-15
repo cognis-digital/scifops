@@ -11,6 +11,7 @@ from dataclasses import dataclass, field
 VALID_LEVELS = ["UNCLASSIFIED", "CONFIDENTIAL", "SECRET", "TOP SECRET"]
 VALID_FGI    = ["FGI"]  # Foreign Government Information marker placeholder
 
+
 @dataclass
 class ClassificationBanner:
     """Builds a CAPCO-shape banner. Validation of *form*, not content."""
@@ -32,13 +33,18 @@ class ClassificationBanner:
     def render(self) -> str:
         """Render the banner-line string. Operator content is passed through."""
         parts = [self.level]
-        if self.sci: parts.append("/".join(self.sci))
-        if self.sap: parts.append("SAR-" + "/".join(self.sap))
+        if self.sci:
+            parts.append("/".join(self.sci))
+        if self.sap:
+            parts.append("SAR-" + "/".join(self.sap))
         suffix = []
-        if self.dissem: suffix.extend(self.dissem)
-        if self.nonic:  suffix.extend(self.nonic)
+        if self.dissem:
+            suffix.extend(self.dissem)
+        if self.nonic:
+            suffix.extend(self.nonic)
         line = "//".join(parts)
-        if suffix: line += "//" + "/".join(suffix)
+        if suffix:
+            line += "//" + "/".join(suffix)
         return line
 
     @classmethod
