@@ -1,0 +1,3 @@
+$ scifops-emit --version
+
+scifops 0.1.0

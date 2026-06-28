@@ -5,6 +5,61 @@
 
 > Public primitives for SCIF/SAPF compliance: badge log w/ tamper-evident audit, TPI, escort tracking, GSA container cadence.
 
+
+<!-- cognis:example:start -->
+## 🔎 Example output
+
+Real, reproducible output from the tool — runs offline:
+
+```console
+$ scifops-emit --version
+scifops 0.1.0
+```
+
+```console
+$ scifops-emit --help
+usage: scifops [-h] [--format {console,json,markdown,sarif,oscal}] [--out OUT]
+               [--fail-on {very_high,high,moderate,low,none}]
+               [--classification CLASSIFICATION] [-v]
+               [target]
+
+scifops — Cognis Digital · Military/IC ecosystem
+
+positional arguments:
+  target                Path/target
+
+options:
+  -h, --help            show this help message and exit
+  --format {console,json,markdown,sarif,oscal}
+  --out OUT             Write output to file
+  --fail-on {very_high,high,moderate,low,none}
+  --classification CLASSIFICATION
+                        Operator-supplied banner. PLACEHOLDER. Tool does not
+                        interpret.
+  -v, --version         show program's version number and exit
+```
+
+> Blocks above are real `scifops` output — reproduce them from a clone.
+
+**Sample result format** _(illustrative values — run on your own data for real findings):_
+
+```
+{
+"findings": [
+    {
+        "id": "1234567890",
+        "title": "Suspicious Network Activity",
+        "description": "Anomalous network traffic detected on port 443.",
+        "confidence": 0.8,
+        "labels": ["Network", "Malware"],
+        "created_at": "2023-02-15T14:30:00Z"
+    }
+]
+}
+```
+
+<!-- cognis:example:end -->
+
 ## Usage — step by step
 
 `scifops` is built on the shared `cognis_mil` CLI: a positional target plus
